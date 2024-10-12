@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <title>Tout est Ici</title>
+</head>
+<body>
+    <header>
+        <div class="principale">
+            <div class="logo">
+                <a href="#">Tout est <span>Ici</span></a>
+            </div>
+            <ul>
+                <li class="active">
+                    <a href="#films">Films</a>
+                </li>
+                <li>
+                    <a href="#series">Séries</a>
+                </li>
+                <li>
+                    <a href="#anime">Animés</a>
+                </li>
+                <li>
+                    <a href="#nouveautes">Nouveautés</a>
+                </li>
+                <li>
+                    <a href="#populaires">Populaires</a>
+                </li>
+            </ul>
+        </div>
+        <div class="titre">
+            <h1>A toi de voir !</h1>
+        </div>
+        <div class="search-container">
+            <input type="text" id="searchInput" placeholder="Recherche...">
+            <button id="searchButton">Chercher</button>
+        </div>
+    </header>
+
+    <main>
+        <section id="filmsSection" class="content-section">
+            <h2>Films en cours</h2>
+            <div id="filmsSectionContent" class="content-container"></div>
+        </section>
+
+        <section id="seriesSection" class="content-section">
+            <h2>Séries populaires</h2>
+            <div id="seriesSectionContent" class="content-container"></div>
+        </section>
+
+        <section id="animeSection" class="content-section">
+            <h2>Animés en cours</h2>
+            <div id="animeSectionContent" class="content-container"></div>
+        </section>
+
+        <section id="nouveautesSection" class="content-section">
+            <h2>Nouveautés</h2>
+            <div id="nouveautesSectionContent" class="content-container"></div>
+        </section>
+
+        <section id="populairesSection" class="content-section">
+            <h2>Films Populaires</h2>
+            <div id="populairesSectionContent" class="content-container"></div>
+        </section>
+    </main>
+
+    <script src="app.js"></script>
+</body>
+</html>

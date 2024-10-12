@@ -1,0 +1,201 @@
+* {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+    font-family: century;
+}
+
+body {
+    background-color: #000; /* Arrière-plan noir pour tout le site */
+    color: #fff; /* Couleur du texte en blanc pour un bon contraste */
+}
+
+header {
+    height: 100vh;
+    background-size: cover;
+    background-position: center;
+    position: relative;
+}
+
+.logo a {
+    color: #fff;
+    padding: 0px 20px;
+    border: 1px #fff;
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    text-transform: uppercase;
+    text-decoration: none;
+    font-weight: 900;
+    text-shadow: rgba(0, 0, 0, 0.7);
+}
+
+.logo span {
+    color: rgb(238, 56, 11);
+    font-weight: bold;
+    font-size: 2rem;
+}
+
+ul {
+    list-style: none;
+    float: right;
+    display: flex;
+    margin-top: 20px;
+}
+
+ul li a {
+    text-decoration: none;
+    color: #fff;
+    padding: 10px 20px;
+    text-transform: uppercase;
+    border: 1px solid transparent;
+    margin: 10px;
+    font-weight: 500;
+    transition: 0.6s ease;
+}
+
+ul li a:hover {
+    background: #fff;
+    color: #000;
+}
+
+ul li.active a {
+    background-color: #fff;
+    color: #000;
+}
+
+.principale {
+    max-width: 114rem;
+    margin: 0 auto;
+}
+
+.titre {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.titre h1 {
+    color: #fff;
+    font-size: 70px;
+}
+
+.bouton {
+    position: absolute;
+    top: 60%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.bouton a {
+    color: #fff;
+    text-decoration: none;
+    border: 1px #fff;
+    padding: 10px 20px;
+}
+
+.btn {
+    transition: 0.6s ease;
+}
+
+.btn:hover {
+    background-color: #fff;
+    color: #000;
+}
+
+.search-container {
+    position: absolute;
+    top: 70%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    display: flex;
+}
+
+#searchInput {
+    padding: 10px;
+    border: 1px solid #fff;
+    border-radius: 5px;
+}
+
+#searchButton {
+    padding: 10px 15px;
+    background-color: #fff;
+    color: #000;
+    border: none;
+    cursor: pointer;
+    border-radius: 5px;
+    margin-left: 10px;
+}
+
+#searchButton:hover {
+    background-color: #e0e0e0;
+}
+
+.content-section {
+    display: none; /* Masque par défaut */
+}
+
+.content-container {
+    display: flex;
+    flex-wrap: wrap; /* Permet d'aligner les éléments */
+    justify-content: space-between; /* Espacement entre les éléments */
+}
+
+.content-item {
+    width: calc(20% - 10px); /* Ajustement pour 5 films par ligne */
+    margin: 10px 0;
+    cursor: pointer;
+    position: relative;
+}
+
+.content-item img {
+    width: 100%;
+    border-radius: 5px;
+}
+
+/* Ajout de styles pour la page de recherche */
+
+header {
+    background-color: #111; /* Couleur de fond pour l'en-tête */
+    padding: 20px;
+    text-align: center;
+}
+
+h1 {
+    color: #fff;
+    margin-bottom: 20px;
+}
+
+#searchQuery {
+    color: rgb(238, 56, 11); /* Met en évidence la requête de recherche */
+}
+
+.content-container {
+    display: flex;
+    flex-wrap: wrap; /* Permet d'afficher les éléments sur plusieurs lignes */
+    justify-content: center; /* Centrer les éléments */
+    padding: 20px;
+}
+
+.content-item {
+    width: 200px; /* Largeur fixe pour chaque élément */
+    margin: 15px; /* Espacement entre les éléments */
+    text-align: center; /* Centrer le texte */
+    transition: transform 0.3s; /* Ajout d'une animation pour le survol */
+}
+
+.content-item:hover {
+    transform: scale(1.05); /* Agrandit l'élément au survol */
+}
+
+.content-item img {
+    width: 100%; /* Image prend toute la largeur de l'élément */
+    border-radius: 5px; /* Coins arrondis pour les images */
+}
+
+h3 {
+    color: #fff;
+    font-size: 1.1rem; /* Taille de la police pour les titres */
+    margin-top: 10px; /* Espace au-dessus du titre */
+}

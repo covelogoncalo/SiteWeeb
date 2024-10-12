@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <title>Recherche</title>
+    <style>
+        /* Styles généraux */
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
+            background-color: #1c1c1c;
+            color: #fff;
+            height: 100vh; /* Forcer la hauteur de la page */
+        }
+
+        /* En-tête */
+        header {
+            text-align: center;
+            padding: 10px;
+            background-color: #333;
+            color: #fff;
+            margin-bottom: 0;
+        }
+
+        /* Style du titre */
+        h1 {
+            font-size: 24px;
+            margin: 0;
+        }
+
+        /* Conteneur principal */
+        main {
+            padding: 0;
+            margin: 0;
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
+            flex-direction: column;
+            height: auto; /* Pour éviter une hauteur fixe */
+        }
+
+        /* Conteneur des résultats de recherche */
+        #searchResults {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+            justify-content: center;
+            margin-top: 10px;
+        }
+
+        /* Style des éléments de contenu */
+        .content-item {
+            background-color: #222;
+            padding: 10px;
+            border-radius: 10px;
+            text-align: center;
+            width: 200px;
+        }
+
+        /* Style des images */
+        img {
+            width: 100%;
+            border-radius: 8px;
+        }
+
+        /* Style des titres des films ou séries */
+        h3 {
+            font-size: 18px;
+            margin: 10px 0 0;
+            color: #ff4500;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Résultats de recherche pour "<span id="searchQuery"></span>"</h1>
+    </header>
+    <main>
+        <div id="searchResults" class="content-container"></div>
+    </main>
+    <script>
+        const API_KEY = '542611a9de55ef5368c5692b1a18936b';
+        const BASE_URL = 'https://api.themoviedb.org/3';
+        
+        const query = new URLSearchParams(window.location.search).get('q');
+
+        document.getElementById('searchQuery').innerText = query; // Affiche la requête de recherche
+
+        function fetchSearchResults() {
+            const url = `${BASE_URL}/search/multi?api_key=${API_KEY}&language=fr-FR&query=${encodeURIComponent(query)}`;
+            fetch(url)
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error('Erreur lors de la récupération des résultats de recherche');
+                    }
+                    return response.json();
+                })
+                .then(data => {
+                    displayResults(data.results);
+                })
+                .catch(error => console.error('Erreur :', error));
+        }
+
+        function displayResults(results) {
+            const container = document.getElementById('searchResults');
+            container.innerHTML = '';
+
+            if (results.length === 0) {
+                container.innerHTML = '<p>Aucun résultat trouvé.</p>';
+                return;
+            }
+
+            results.forEach(item => {
+                const div = document.createElement('div');
+                div.className = 'content-item';
+
+                const img = document.createElement('img');
+                img.src = `https://image.tmdb.org/t/p/w500${item.poster_path}`;
+                img.alt = item.title;
+                img.onclick = () => {
+                    const type = item.media_type === 'movie' ? 'movie' : 'tv';
+                    window.location.href = `${type}.html?id=${item.id}`; // Redirige vers la page de détails
+                };
+
+                const title = document.createElement('h3');
+                title.innerText = item.title || item.name; // Titre du film ou de la série
+
+                div.appendChild(img);
+                div.appendChild(title);
+                container.appendChild(div);
+            });
+        }
+
+        // Appeler la fonction de recherche
+        if (query) {
+            fetchSearchResults();
+        } else {
+            document.getElementById('searchResults').innerHTML = '<p>Veuillez entrer un terme de recherche.</p>';
+        }
+    </script>
+</body>
+</html>

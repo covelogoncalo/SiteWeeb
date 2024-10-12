@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <title>Détails du Film</title>
+    <style>
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background-color: #1c1c1c;
+            color: #fff;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        
+        header {
+            width: 100%;
+            background-color: #333;
+            padding: 20px;
+            text-align: center;
+        }
+
+        .movie-container {
+            max-width: 800px;
+            background: #222;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
+            margin: 20px;
+            padding: 20px;
+        }
+
+        h1 {
+            font-size: 2em;
+            margin: 0;
+        }
+
+        img {
+            width: 100%;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+        }
+
+        p {
+            font-size: 1.1em;
+            line-height: 1.6em;
+        }
+
+        .trailer-container {
+            margin-top: 20px;
+            text-align: center;
+        }
+
+        .back-button {
+            background-color: #ff4500;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-top: 10px;
+            transition: background-color 0.3s;
+        }
+
+        .back-button:hover {
+            background-color: #e63900;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <button class="back-button" onclick="goBack()">Retour</button>
+        <h1>Détails du Film</h1>
+    </header>
+    <div id="movieDetails" class="movie-container"></div>
+
+    <script>
+        const API_KEY = '542611a9de55ef5368c5692b1a18936b';
+        const BASE_URL = 'https://api.themoviedb.org/3';
+
+        const params = new URLSearchParams(window.location.search);
+        const movieId = params.get('id');
+
+        function fetchMovieDetails() {
+            const url = `${BASE_URL}/movie/${movieId}?api_key=${API_KEY}&language=fr-FR`;
+
+            fetch(url)
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error('Erreur lors de la récupération des détails du film');
+                    }
+                    return response.json();
+                })
+                .then(data => {
+                    displayMovieDetails(data);
+                })
+                .catch(error => console.error('Erreur :', error));
+        }
+
+        function displayMovieDetails(movie) {
+            const container = document.getElementById('movieDetails');
+            container.innerHTML = `
+                <h1>${movie.title}</h1>
+                <img src="https://image.tmdb.org/t/p/w500${movie.poster_path}" alt="${movie.title}">
+                <p><strong>Date de sortie:</strong> ${movie.release_date}</p>
+                <p><strong>Synopsis:</strong> ${movie.overview}</p>
+                <p><strong>Genres:</strong> ${movie.genres.map(g => g.name).join(', ')}</p>
+                <p><strong>Note:</strong> ${movie.vote_average}</p>
+                <h2 bandeau>Trailer:</h2>
+                <div id="trailer" class="trailer-container"></div>
+            `;
+            fetchTrailer();
+        }
+
+        function fetchTrailer() {
+            const url = `${BASE_URL}/movie/${movieId}/videos?api_key=${API_KEY}&language=fr-FR`;
+
+            fetch(url)
+                .then(response => response.json())
+                .then(data => {
+                    if (data.results.length > 0) {
+                        const trailer = data.results[0];
+                        const trailerDiv = document.getElementById('trailer');
+                        trailerDiv.innerHTML = `
+                            <iframe width="560" height="315" 
+                            src="https://www.youtube.com/embed/${trailer.key}" 
+                            frameborder="0" 
+                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+                            allowfullscreen></iframe>
+                        `;
+                    } else {
+                        document.getElementById('trailer').innerText = "Pas de trailer disponible.";
+                    }
+                })
+                .catch(error => console.error('Erreur lors de la récupération du trailer :', error));
+        }
+
+        function goBack() {
+            window.history.back();
+        }
+
+        fetchMovieDetails();
+    </script>
+</body>
+</html>
